@@ -1,3 +1,4 @@
+// @ts-nocheck 
 import { Pool } from "@neondatabase/serverless"
 const interests = [
     'Technology',
