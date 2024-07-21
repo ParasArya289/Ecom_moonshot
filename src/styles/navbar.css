@@ -1,0 +1,49 @@
+.navbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px 30px 30px ;
+  
+    h3 {
+      font-size: 30px;
+      text-transform: capitalize;
+    }
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  
+    .links1 {
+      display: flex;
+      gap: 30px;
+      a {
+        font-weight: 600;
+      }
+    }
+    .links2 {
+      position: absolute;
+      display: flex;
+      gap: 20px;
+      top: 10px;
+      right: 30px;
+      font-weight: 300;
+      font-size: smaller;
+    }
+    .usefull_links {
+      .links3 {
+        display: flex;
+        gap: 30px;
+        font-size: 25px;
+      }
+    }
+    .offer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      font-size: small;
+      font-weight: 500;
+      background-color: #f4f4f4;
+      bottom:0;
+    }
+  }

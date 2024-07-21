@@ -1,0 +1,18 @@
+.auth {
+    .user__desc {
+      margin-top: 100px;
+    }
+    .user__logout {
+      margin-top: 10px;
+      border: none;
+      background-color: black;
+      color: white;
+      padding: 20px 40px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .user__logout:hover {
+      background-color: grey;
+    }
+  }
