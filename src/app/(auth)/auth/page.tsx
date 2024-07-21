@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
-import "../../../../styles/auth.css";
+import "../../../styles/auth.css";
 import SignUp from "~/components/Signup/Signup";
 import Login from "~/components/Login/Login";
 

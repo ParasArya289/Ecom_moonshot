@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react";
-import "../../styles/home.css";
+import "../styles/home.css";
 
 const Home = () => {
   const [page, setPage] = useState(1);
