@@ -8,11 +8,12 @@ export async function sendVerificationEmail(
 ) {
   try {
     await resend.emails.send({
-      from: "ECOMMERCE <onboarding@resend.dev>",
+      from: "Acme <onboarding@resend.dev>",
       to: email,
       subject: "Hello world",
       react: VerificationEmail({ fullname, otp: verifyCode }),
     });
+    console.log("email send", email, fullname, verifyCode);
     return {
       success: true,
       message: "Email sent to your Email",
