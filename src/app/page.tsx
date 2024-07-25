@@ -1,12 +1,19 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/home.css";
+import { redirect } from "next/navigation";
+import { useAuth } from "~/context/authContext";
+import { getSession } from "~/lib/lib";
 
 const Home = () => {
   const [page, setPage] = useState(1);
   const [perPageData, setPerPageData] = useState(page * 6);
-//   const { user, updateInterests } = useEcommerceData();
-
+  const {user} = useAuth();
+useEffect(()=>{
+  if(!user){
+    redirect("/auth")
+  }
+},[])
   let startingIndex = page * 6 - 6;
   let endingIndex = page * 6;
 

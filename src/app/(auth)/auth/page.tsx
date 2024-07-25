@@ -1,26 +1,23 @@
-'use client'
+"use client";
 import { useEffect, useState } from "react";
 import "../../../styles/auth.css";
 import SignUp from "~/components/Signup/Signup";
 import Login from "~/components/Login/Login";
+import { useAuth } from "~/context/authContext";
+import { useRouter } from "next/router";
+import { redirect } from "next/navigation";
 
 const Auth = () => {
   const [authType, setAuthType] = useState("signup");
   const [checkOtp, setCheckOtp] = useState(false);
   const [generatedOtp, setGeneratedOtp] = useState(0);
   const [newUser, setNewUser] = useState({});
-
-  // const { createUser, user, logout } = useEcommerceData();
-  // const navigate = useNavigate();
-const user={name:''}
-  const createOTP = (digit) => {
-    return Math.floor(10000000 + Math.random() * (digit * 10000000));
-  };
+  const { user } = useAuth();
   useEffect(() => {
-    // if (user.name) {
-    //   navigate("/");
-    // }
-  }, []);
+    if (user?.fullname) {
+      redirect("/");
+    }
+  }, [user]);
   const onOtpSubmit = (userOtp) => {
     // if (userOtp == generatedOtp) {
     //   createUser(newUser);
@@ -41,7 +38,7 @@ const user={name:''}
             <SignUp
               setAuthType={setAuthType}
               setCheckOtp={setCheckOtp}
-              createOTP={createOTP}
+              createOTP={() => {}}
               setGeneratedOtp={setGeneratedOtp}
               setNewUser={setNewUser}
             />
@@ -50,7 +47,7 @@ const user={name:''}
         </>
       ) : (
         <>
-          <h4 className="user__desc">Hi {user.name} you are logged in.</h4>
+          <h4 className="user__desc">Hi {user.fullnam} you are logged in.</h4>
           {/* <button className="user__logout" onClick={logout}>
             Logout
           </button> */}
@@ -59,4 +56,4 @@ const user={name:''}
     </div>
   );
 };
-export default Auth
+export default Auth;
