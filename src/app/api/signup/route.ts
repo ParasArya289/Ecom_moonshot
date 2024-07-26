@@ -4,7 +4,7 @@ import { sendVerificationEmail } from "~/helpers/sendVerificationMail";
 
 export async function POST(request: Request) {
   let { fullname, email, password, isVerified = false } = await request.json();
-  console.log(request.body);
+  console.log(fullname);
   const otp = Math.floor(100000 + Math.random() * 900000);
   try {
     // console.log(fullname,email,password,isVerified=false,otp)
@@ -24,11 +24,17 @@ export async function POST(request: Request) {
           { status: 400 }
         );
       } else {
-        const emailResponse = await sendVerificationEmail(
-          email,
-          fullname,
-          foundUser.rows[0].otp
+        const updateUser = await pool.query(
+          `UPDATE users
+          SET 
+          fullname = $1,
+  password = $2,
+  otp = $3
+WHERE email = $4
+RETURNING *;`,
+          [fullname, password, otp, email]
         );
+        const emailResponse = await sendVerificationEmail(email, fullname, otp);
         if (!emailResponse.success) {
           return Response.json(
             {
@@ -42,6 +48,7 @@ export async function POST(request: Request) {
           {
             success: true,
             message: "Please verify your email",
+            userId: foundUser.rows[0].id,
           },
           { status: 200 }
         );
@@ -68,11 +75,12 @@ export async function POST(request: Request) {
     return Response.json(
       {
         message: "Signup complete please verify your email",
-        user: result.rows[0],
+        userId: result.rows[0].id,
       },
       { status: 201 }
     );
   } catch (error) {
+    console.log(error.message);
     return Response.json(
       { message: "Error occured while creating user" },
       { status: 500 }
