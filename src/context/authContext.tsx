@@ -6,6 +6,7 @@ export const authContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
@@ -14,11 +15,14 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(user));
   };
   const login = async (userCredentials) => {
+    setLoading(true);
     try {
       const res = await axios.post("/api/login", userCredentials);
       assignUser(res.data.user);
     } catch (error) {
       console.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   const logout = () => {
@@ -26,7 +30,7 @@ export const AuthContextProvider = ({ children }) => {
     setUser(null);
   };
   return (
-    <authContext.Provider value={{ user, login, logout, setUser }}>
+    <authContext.Provider value={{ user, login, logout, setUser, loading }}>
       {children}
     </authContext.Provider>
   );

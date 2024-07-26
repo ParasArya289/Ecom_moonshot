@@ -1,11 +1,10 @@
-
-'use client'
+"use client";
 import React, { useRef } from "react";
 import "../../styles/authForms.css";
 import { useAuth } from "~/context/authContext";
 const Login = ({ setAuthType }) => {
   const formRef = useRef(null);
-  const {login} = useAuth();
+  const { login, loading } = useAuth();
   const handleLogin = (e) => {
     e.preventDefault();
     const formData = new FormData(formRef.current);
@@ -14,7 +13,6 @@ const Login = ({ setAuthType }) => {
       data[key] = value;
     }
     login(data);
-
   };
   return (
     <div className="login auth_form">
@@ -30,12 +28,14 @@ const Login = ({ setAuthType }) => {
           Password
           <input type="text" name="password" placeholder="Enter" required />
         </label>
-        <button type="submit">LOGIN</button>
+        <button type="submit">{loading ? "Loading..." : "LOGIN"}</button>
       </form>
       <hr />
       <p>
         Don't have an Account?{" "}
-        <button onClick={() => setAuthType("signup")}>SIGN UP</button>
+        <button disabled={loading} onClick={() => setAuthType("signup")}>
+          SIGN UP
+        </button>
       </p>
     </div>
   );
