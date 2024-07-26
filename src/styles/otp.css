@@ -4,6 +4,7 @@
     padding: 40px 50px;
     margin: 40px auto;
     width: fit-content;
+    color:black;
     h4 {
       margin: 0;
       font-weight: 500;
@@ -24,7 +25,8 @@
         border: 1px solid rgba(0, 0, 0, 0.2);
         outline: none;
         padding-inline: 10px;
-        width: 1ch;
+        width: 2.5ch;
+        color:black;
       }
     }
     button {

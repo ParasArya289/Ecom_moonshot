@@ -1,4 +1,4 @@
-import VerificationEmail from "~/components/Email/Email";
+import VerificationEmail from "public/email/VerificationEmail";
 import { resend } from "~/lib/resend";
 
 export async function sendVerificationEmail(
@@ -7,13 +7,12 @@ export async function sendVerificationEmail(
   verifyCode: string
 ) {
   try {
-    await resend.emails.send({
-      from: "Acme <onboarding@resend.dev>",
+    const { data, error } = await resend.emails.send({
+      from: "ECOMMERCE <onboarding@resend.dev>",
       to: email,
-      subject: "Hello world",
+      subject: "Verification code",
       react: VerificationEmail({ fullname, otp: verifyCode }),
     });
-    console.log("email send", email, fullname, verifyCode);
     return {
       success: true,
       message: "Email sent to your Email",
