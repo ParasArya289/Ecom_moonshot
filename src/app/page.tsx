@@ -24,6 +24,9 @@ const Home = () => {
         const res = await axios.get(`/api/interests?user_id=${user.id}`);
         setUserInterests(res.data.interests);
       } catch (error) {
+        const axiosError = error as AxiosError;
+        let errorMessage = axiosError.response?.data.message ?? "Signup failed";
+        alert(errorMessage)
         console.error(error);
       } finally {
         // setInterestLoading(false);
@@ -46,6 +49,9 @@ const Home = () => {
       });
       setUserInterests(res.data.interests);
     } catch (error) {
+      const axiosError = error as AxiosError;
+      let errorMessage = axiosError.response?.data.message ?? "Signup failed";
+      alert(errorMessage)
       console.error(error.message);
     } finally {
       setInterestLoading(false);

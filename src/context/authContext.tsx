@@ -20,6 +20,9 @@ export const AuthContextProvider = ({ children }) => {
       const res = await axios.post("/api/login", userCredentials);
       assignUser(res.data.user);
     } catch (error) {
+      const axiosError = error as AxiosError;
+      let errorMessage = axiosError.response?.data.message ?? "Signup failed";
+      alert(errorMessage)
       console.error(error.message);
     } finally {
       setLoading(false);

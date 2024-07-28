@@ -32,6 +32,9 @@ const Otp = ({ digit = 6 }) => {
       setUser(res.data.user);
       router.replace("/");
     } catch (error) {
+      const axiosError = error as AxiosError;
+      let errorMessage = axiosError.response?.data.message ?? "Signup failed";
+      alert(errorMessage)
       console.error(error.message);
     } finally {
       setVerificationLoading(false);

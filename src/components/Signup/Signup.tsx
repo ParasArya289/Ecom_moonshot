@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import "../../styles/authForms.css";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 const SignUp = ({ setAuthType }) => {
   const formRef = useRef(null);
@@ -14,6 +14,9 @@ const SignUp = ({ setAuthType }) => {
       const res = await axios.post("/api/signup", userCred);
       router.replace(`/otp/${res.data.userId}`);
     } catch (error) {
+      const axiosError = error as AxiosError;
+      let errorMessage = axiosError.response?.data.message ?? "Signup failed";
+      alert(errorMessage)
       console.error(error.message);
     } finally {
       setIsSignUpLoading(false);
