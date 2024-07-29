@@ -9,7 +9,7 @@ const Otp = ({ digit = 6 }) => {
   const params = useParams();
   const [otp, setOtp] = useState(new Array(digit).fill(""));
   const [verificationLoading, setVerificationLoading] = useState(false);
-  const { user,setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const router = useRouter();
   useEffect(() => {
     if (user?.fullname) {
@@ -30,11 +30,12 @@ const Otp = ({ digit = 6 }) => {
         otp: parseInt(otp.join("")),
       });
       setUser(res.data.user);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       router.replace("/");
     } catch (error) {
       const axiosError = error as AxiosError;
       let errorMessage = axiosError.response?.data.message ?? "Signup failed";
-      alert(errorMessage)
+      alert(errorMessage);
       console.error(error.message);
     } finally {
       setVerificationLoading(false);
