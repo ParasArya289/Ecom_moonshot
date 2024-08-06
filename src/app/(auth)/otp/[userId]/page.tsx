@@ -56,13 +56,16 @@ const Otp = ({ digit = 6 }) => {
         inputRefs.current[i + 1].focus();
       }
     }
-    // if (keyPressed === "Backspace") {
-    //   if (!inputValue && i < digit && inputRefs.current[i - 1]) {
-    //     inputRefs.current[i - 1].focus();
-    //   } else {
-    //     inputRefs.current[i].value = "";
-    //   }
-    // }
+    if (keyPressed === "Backspace") {
+      if (!inputValue && i < digit && inputRefs.current[i - 1]) {
+        inputRefs.current[i - 1].focus();
+      } else {
+        inputRefs.current[i].value = "";
+        setOtp((prev) =>
+          prev.map((el, j) => (j === digit - 1 ? (el = "") : el))
+        );
+      }
+    }
   };
   return (
     <div className="otp">
